@@ -1,0 +1,173 @@
+Notes
+
+Lecture 0:
+
+MySQL is most widely used database
+
+there are two types of databases 
+1.SQL database
+2.NoSQL database
+
+Why relational DB, when NoSQL are getting popular?
+-> It does not mean when one thing is getting popular then there is dip in older thing.
+
+
+MySQL is one of the foundational DB.
+MariaDB is on of the close competitor for MySQL
+
+In this lectures we are using local installation.
+
+To lean DB is not as fun as building app in react, python or flutter.
+
+Without DB you will always feel half confident.
+
+
+
+Section 2:
+----------
+
+In this section we will play fictitious scenario and we will try to learn some basic operations.
+
+------------------------------------------------------------
+#Task 1.1:
+You want to have a startup. Initial thought was to name it click store. Then you decided to name it photo store. 
+Create DB accordingly.
+------------------------------------------------------------
+*** mysql -u root -p - this command is used to start MySQL on cmd when you hit this command it will ask you for the password for root user.
+
+*** show databases; - this command will show you the the database and first time it will come with bydefault values.
+
+*** CREATE DATABASE click_store; : this command will create a new data base and we can verify it by using show databases command.
+
+now we want to change the name from click_store to photo_store.
+There is no direct way to do that, first of all we need to delete click_store and the create new data_base named as photo_store.
+
+*** DROP database click_store - this command will delete  the data base. Make sure whatever you want to delete you mention it after drop,
+In this example we mentioned database because we wan to delete database.
+
+
+*** source one_basic.sql command can be used to run the tasks directly from .sql file. We can do it on VScode as well.
+
+
+-----------------------------------------------------------
+#Task 1.2:
+In store, I will keep canon cameras. I will keep stock information by camera name and quantity.
+-----------------------------------------------------------
+
+
+
+
+------------------------------------------------------------
+#Task 1.3:
+A shipment of canon cameras came in and you have to add them in database.
+70D - 12
+80D - 19
+EOS-R - 25
+EOS-r5 - 80
+EOS-r6 - 50
+------------------------------------------------------------
+
+
+
+
+
+------------------------------------------------------------
+#Task 1.4
+A customer walks in the store and asks following questions:
+1. What model of canon cameras do you have?
+2. How much 80D you can give me right now?
+3. I want to buy buy 50 cameras of same model. What can you supply me at this moment?
+------------------------------------------------------------
+
+
+
+
+
+section: 3
+-----------
+
+This section is like replica of what we seen in past section but things are different here.
+In this section we will learn about the null values, primary keys, default values 
+This are base foundations of relational database.
+
+
+---------------------------------------------------------------
+#Task 1.5
+ 
+ Where we are now:
+ Coustomers are coming in the store and we wan to store our customers data.
+
+ I want to store their name, email and amount they spent.
+---------------------------------------------------------------
+
+Primary Key:
+============
+Whenever you want to make anything or any row unique then it comes to the primary key. It is used to make naything unique
+
+Default:
+========
+When someone don't want to give some value then the value which will come in that place is a default value.
+
+Not NULL:
+=========
+We don't want the values in our database will come as NULL.
+
+
+---------------------------------------------------------------
+#Task 1.6
+
+Where we are now?
+
+We want to answer some of the customer questions.
+1. Can you give me names of all customers?
+2. Can you give me emails of all customers?
+3. Can you give me all purchases of all customers?
+---------------------------------------------------------------
+
+SELECT amount AS Purchases from customers;
+In this query AS is:
+An alias is a feature of SQL that is supported by most, if not all, relational database management systems (RDBMSs). A programmer can use an alias to temporarily assign another name to a table or column for the duration of a SELECT query. Assigning an alias does not actually rename the column or table.
+
+
+C - CREATE
+R - READ
+U - UPDATE 
+D - DELETE
+This all are concepts not just the commands.
+
+-Whatever we done till now are CREATE tasks
+
+Now we are going to do UPDATE tasks.
+---------------------------------------------------------------
+#Task 1.7
+
+1. Jimmy's email was entered incorrectly, edit it to jimmy@yahoo.com
+
+
+2. Lina's purchase wa not of 35 but it was of 38
+
+3. Change email of all line to lina@gmail.com
+
+---------------------------------------------------------------
+
+
+NOTE:
+====
+*Having primary key is the best way to select any row you want to do.
+*Whenever we are doing any UPDATE operation it is recommended to perform select operation.
+
+**SET keyword is used to set the data, whatever data is present is get overwritten by new data.
+
+
+-Now further tasks are for deleting the data:
+---------------------------------------------------------------
+#Task 1.8
+
+1.Delete George information
+2.Delete all hitesh account
+3.Delete all lina account
+---------------------------------------------------------------
+
+NOTES: 
+------
+1. Make sure before performing delete operation you always perform a select operation and see what data you are going to delete.
