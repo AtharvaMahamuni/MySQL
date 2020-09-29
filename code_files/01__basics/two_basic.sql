@@ -51,6 +51,7 @@
 
 -- Adding data in customers table
 -- TODO: add this data for practice
+
 -- INSERT INTO customers(name, email, amount)
 -- VALUES ('hitesh', 'hitesh@lco.dev', 35),
 --         ('George', 'geo@lco.dev', 45),
@@ -88,6 +89,9 @@
 
 -- SELECT * from customers WHERE name='george';
 -- DELETE from customers WHERE name='george';
+
+-- Alternative way with ID
+-- DELETE FROM customers WHERE id='6';
 
 
 -- SELECT * from customers WHERE name='hitesh';

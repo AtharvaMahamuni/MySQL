@@ -48,8 +48,8 @@
 -- SELECT model_name, quantity from canon_cameras
 -- WHERE  quantity = 50;
 
-SELECT model_name, quantity from canon_cameras
-WHERE  quantity >= 50;
+-- SELECT model_name, quantity from canon_cameras
+-- WHERE  quantity >= 50;
 
 
 
