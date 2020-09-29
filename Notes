@@ -1,6 +1,7 @@
 Notes
 
-Lecture 0:
+Section 1:
+-----------
 
 MySQL is most widely used database
 
@@ -40,13 +41,16 @@ Create DB accordingly.
 *** CREATE DATABASE click_store; : this command will create a new data base and we can verify it by using show databases command.
 
 now we want to change the name from click_store to photo_store.
-There is no direct way to do that, first of all we need to delete click_store and the create new data_base named as photo_store.
+There is no direct way to do that, first of all we need to delete click_store and create new data_base named as photo_store.
 
 *** DROP database click_store - this command will delete  the data base. Make sure whatever you want to delete you mention it after drop,
-In this example we mentioned database because we wan to delete database.
+In this example we mentioned database because we want to delete database.
 
 
 *** source one_basic.sql command can be used to run the tasks directly from .sql file. We can do it on VScode as well.
+
+
+In this course we are using VS code because it will serve us well to write queries and edit them afterwards. And with this written queries in VS code will help us to refer the codes afterwards.
 
 
 -----------------------------------------------------------
@@ -54,6 +58,20 @@ In this example we mentioned database because we wan to delete database.
 In store, I will keep canon cameras. I will keep stock information by camera name and quantity.
 -----------------------------------------------------------
 
+To select the required database first run the command;
+USE database_name;
+SELECT DATABASE();
+
+***To create the table camera we use following command.
+CREATE TABLE cameras(
+	model_name VARCHAR(30),
+	quantity INT
+);
+
+***To see the table we use describe command
+DESC cameras;
+
+***SHOW TABLES; this command is used to see the all available tables in database.
 
 
 
@@ -67,7 +85,14 @@ EOS-r5 - 80
 EOS-r6 - 50
 ------------------------------------------------------------
 
+***To insert data in table we are using following command:
 
+INSERT INTO canon_cameras(model_name, quantity)
+VALUES("70-D", 12),
+("80-D", 19),
+("EOS-R", 25),
+("EOS-r5", 80),
+("EOS-r6", 50);
 
 
 
@@ -79,8 +104,21 @@ A customer walks in the store and asks following questions:
 3. I want to buy buy 50 cameras of same model. What can you supply me at this moment?
 ------------------------------------------------------------
 
+***To get all information from our canon_cameras table we can use command:
+SELECT * FROM canon_cameras;
 
 
+***If you want to grab all model names of canon_cameras from database then you can use command:
+SELECT model_name FROM canon_cameras;
+
+***To answer the second question we need to use WERE clause with this we can select that specific model_name and get it's data.
+SELECT model_name, quantity FROM canon_cameras
+WHERE model_name = "80d";
+now look at d it is not case sensitive here.
+
+
+SELECT model_name, quantity FROM canon_cameras
+WHERE quantity >= 50;
 
 
 section: 3
@@ -124,9 +162,18 @@ We want to answer some of the customer questions.
 3. Can you give me all purchases of all customers?
 ---------------------------------------------------------------
 
+1st and 2nd query is simple and there commands are:
+SELECT name FROM customers;
+SELCCT email FROM customers;
+
+*Whatever data you retrive from data base there you will get the copy of data not exact data so aliasing help us to get data with some modeification.
+
+for 3rd query we need to take amount as pusrchases so we use:
+-------------------------------------------------------------
 SELECT amount AS Purchases from customers;
 In this query AS is:
 An alias is a feature of SQL that is supported by most, if not all, relational database management systems (RDBMSs). A programmer can use an alias to temporarily assign another name to a table or column for the duration of a SELECT query. Assigning an alias does not actually rename the column or table.
+
 
 
 C - CREATE
@@ -150,13 +197,25 @@ Now we are going to do UPDATE tasks.
 
 ---------------------------------------------------------------
 
-
 NOTE:
-====
+=====
 *Having primary key is the best way to select any row you want to do.
 *Whenever we are doing any UPDATE operation it is recommended to perform select operation.
 
 **SET keyword is used to set the data, whatever data is present is get overwritten by new data.
+
+
+to answer 1st question we need to select the name with 1st command and then we will update it with 2nd command
+
+SELECT * FROM customers WHERE name='jimmy';
+
+*To update data UPDATE key word is used and to set data SET keyword is used.
+
+UPDATE customers SET email = 'jimmy@yahoo.com' WHERE name='jimmy';
+
+
+in 3rd qustion we are asked to change email id of all lina with lina@gmail.com 
+It is similar to the operations we performed above.
 
 
 -Now further tasks are for deleting the data:
@@ -168,6 +227,94 @@ NOTE:
 3.Delete all lina account
 ---------------------------------------------------------------
 
-NOTES: 
-------
+to delete data use following queries but first select the rows which you want to delete.
+
+SELECT * FROM customers WHERE name='george';
+DELETE FROM customers WHERE name='george';
+
+*NOTE: 
+======
 1. Make sure before performing delete operation you always perform a select operation and see what data you are going to delete.
+
+***CAUTION : If you write command as 
+DELETE FROM customers; 
+Then you will delete entire table.
+
+
+
+Section 4:
+==========
+This section is based on tasks for reading db
+In this section we will learn about core foundation of MySQL
+
+In this section we are going to learn about functions.
+
+
+three_lco.sql is just to make a database to perform operations use another file. i.e. three_task.sql
+
+
+---------------------------------------------------------------
+#Task 2.1:
+1. Give me full name of all students.
+2. Give me full name and login count of all users.
+3. While getting all firstname, change a to @.
+4. Get me list of emails. If email is longer than 7 character, truncate it with ...
+5. Get me length of all registerd email.
+6. Get me all first name in upper case and last name in lower case.
+---------------------------------------------------------------
+
+*TASK FOR CONCAT:
+=================
+Grabbing full names is very common practice in databases.
+For now try to break the query in small parts.
+
+Now to answer the 1st question we want full name as always we can take stu_fname and stu_lname seprately but 
+here we have a better way to take it using concatination.
+
+SELECT CONCAT(stu_fname, ' ', stu_lname) AS stu_fullName FROM students;
+
+
+*TASK FOR REPLACE:
+==================
+SELECT REPLACE('Atharva', 'a', '@');
+^this query will replace a's in my name with @'s.
+This time it is case sensitive only small a's will get affected capital A will remain as it is.
+
+
+
+SUBSTRINGS:
+===========
+In the substrings eg. SELECT SUBSTRING('ATHARVA', 1, 4);
+here it will give me an output : ATHA
+The 1 denotes that start from first postion(Here we will start string from 1 not from 0.)
+& 4 indicates to take 4 values from string.
+If you missout this 4 then all values get printed.
+
+*Query for 4th question is:
+SELECT CONCAT(REPLACE(email, 1, 7), '...') AS trucared_email from students;
+
+
+
+REVERSE:
+========
+SELECT REVERSE(stu_fname) FROM students;
+This will give all names in reverse.
+
+
+CHAR_LENGTH:
+============
+SELECT email, CHAR_LENGTH(email) AS length FROM students;
+This will give us the length of characters.
+
+
+UPPER CASE AND LOWER CASE:
+==========================
+SELECT UPPER('atharva');
+this will give us ATHARVA as a output.
+
+SELECT LOWER('ATHARVA');
+THIS WILL GIVE US atharva AS A OUTPUT.
+
+
+
+
