@@ -122,7 +122,7 @@ WHERE quantity >= 50;
 
 
 section: 3
------------
+===========
 
 This section is like replica of what we seen in past section but things are different here.
 In this section we will learn about the null values, primary keys, default values 
@@ -315,6 +315,199 @@ this will give us ATHARVA as a output.
 SELECT LOWER('ATHARVA');
 THIS WILL GIVE US atharva AS A OUTPUT.
 
+
+
+Section: 5
+==========
+This section is strong foundation
+Until we learned basics now in this section we will learn how to perform operations.
+
+Documentation reading is important for this section.
+
+
+--------------------------------------------------
+Task 3.1 LCO USERS - Level - 2
+
+1. How many users are there on your website?
+2.1 Arrange all user based on number of login count.
+2.2 Arrange all user based on number of course count.
+3. I want sorted result but only top 5 users.
+4. Find the users who's names are ending with esh.
+5. How many users are registered on website. Give me number this time.
+6. Group students by signup month.
+7. Find student with max login and also find the one with min course count.
+8. Lowest number of login count in 7th and 10th month.
+9. Total number of login and average number of course taken by users by month.
+10. Find users who are having login count of least 20 and are enrolled in at least 5 courses.
+11. Find users who signed up in 7th and 10th month(In the question AND is given but it does not mean we should use AND We need to Use OR here otherwise it will does not give any output.)
+
+--------------------------------------------------
+
+
+
+DISTINCT:
+=========
+In our data base mukesh and hemant are repeated so to grab only one or unique from them we use distinct key word.
+
+eg.
+SELECT DISTINCT stu_fname, email FROM students;
+
+
+ORDER BY:
+=========
+With the help of this query we can arrange our data in asscending or descending order.
+
+***It is bydefault in ascending order to print it in descending order we need to write the DESC keyword.
+
+SELECT stu_fname, login_count, course_count 
+FROM students ORDER BY login_count;
+
+SELECT stu_fname, login_count, course_count 
+FROM students ORDER BY login_count ASC;
+
+SELECT stu_fname, login_count, course_count 
+FROM students ORDER BY login_count DESC;
+
+***We can also write query with the number of column. In following query elements will get printed according to 3rd column.
+
+SELECT stu_fname, login_count, course_count 
+FROM students ORDER BY 3 DESC;
+
+
+LIMIT:
+======
+Following query will give us only top 5 results.
+SELECT DISTINCT stu_fname, login_count
+FROM students ORDER BY login_count DESC LIMIT 0, 5;
+
+Here 0 means rows start from 0. Yes it is not same as substring here we start from 0.
+And 5 means 5 results.
+
+
+MATCH THE PATTERN:
+==================
+LIKE:
+=====
+Here we want to find all the users who's names will end with esh.
+
+SELECT stu_fname, email FROM students
+WHERE stu_fname LIKE "%esh";
+
+This % sign will denote that match the string with esh and take naything before that.
+
+Similarly if we want all name starting from m we will write something like "m%".
+
+If suppse we have name mike then we can write it as "m____" or "mi__" or "m_k_" something like this.
+	
+
+COUNT:
+======
+To get COUNT of users we will write a query as
+SELECT COUNT(DISTINCT stu_fname) FROM students;
+
+***NOTE: here we have written DISTINCT inside () to get count of unique values only.
+But if we write it outside the () then we will get count with duplicate values as well.
+
+
+GROUP BY:
+=========
+Before group by we need to set the sql mode and without setting this mode there are chances of getting errors.
+
+SET MODE:
+---------
+SET @@sql_mode = '';
+
+
+SELECT stu_fname, signup_month, COUNT(*) FROM students GROUP BY signup_month;
+
+^ This query will give us the list of students who are grouped by there signup month.
+This COUNT(*) will give us the exact number of grouped students.
+
+
+
+MIN AND MAX:
+============
+SELECT stu_fname, email, MIN(login_count) FROM students;
+
+SELECT stu_fname, email, MAX(login_count) FROM students;
+
+This both queries will give just MAX OR MIN of login count but the name and email associated  with that is wrong.
+
+To fix that we need to fireup two queries at a time and this query will be as follows:
+
+SELECT stu_fname, email, login_count FROM students
+WHERE login_count = (SELECT MAX(login_count) FROM students);
+
+Following query is for finding minimum course count from students.
+
+SELECT stu_fname, email, course_count FROM students
+WHERE course_count = (SELECT MIN(course_count) FROM students);
+
+
+GROUP BY - MIN AND MAX:
+=======================
+
+
+
+
+
+AVG and SUM:
+============
+SELECT signup_month, login_count FROM students
+WHERE signup_month = 7;
+
+This is the query we already know how to grab data who's signup month is 7.
+
+SELECT signup_month, login_count FROM students
+GROUP BY signup_month;
+This query will give us the the result where everything is grouped by signup month.
+
+SELECT signup_month, SUM(login_count) FROM students
+GROUP BY signup_month;
+
+SELECT signup_month, AVG(login_count) FROM students
+GROUP BY signup_month;
+
+GROUP BY is always used with SUM or AVG or in something which is similar to this context.
+
+
+AND and OR:
+===========
+SELECT email, login_count, signup_month, course_count FROM students
+WHERE login_count >=20 AND course_count >= 5
+ORDER BY login_count;
+
+SELECT email, login_count, signup_month, course_count FROM students
+WHERE login_count >=20 OR course_count >= 5
+ORDER BY login_count;
+
+SELECT email, login_count, course_count, signup_month FROM students
+WHERE signup_month = 7 OR  signup_month = 10;
+
+In the question and is given to show the entries from both months but while writing query we need to write OR otherwise it will not give any result.
+
+SELECT email, login_count, course_count, signup_month FROM students
+WHERE signup_month = 7 AND  signup_month = 10;
+
+***RANGE - BETWEEN AND
+======================
+If you want to get all entries between 7 and 10 then we can write it in this way.
+
+SELECT email, login_count, signup_month FROM students
+WHERE signup_month BETWEEN 7 AND 10;
+
+
+CASE:
+=====
+If you want to make two user groups such as early birds and regular users then we can write query in following way.
+
+SELECT stu_fname, signup_month, 
+    CASE 
+        WHEN signup_month BETWEEN 7 AND 10 THEN 'EARLY BIRD'
+        WHEN signup_month BETWEEN 11 AND 12 THEN 'REGULAR USER'
+        ELSE '##'
+    END AS Custom
+FROM students;
 
 
 
