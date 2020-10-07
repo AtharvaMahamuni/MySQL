@@ -339,7 +339,7 @@ Task 3.1 LCO USERS - Level - 2
 8. Lowest number of login count in 7th and 10th month.
 9. Total number of login and average number of course taken by users by month.
 10. Find users who are having login count of least 20 and are enrolled in at least 5 courses.
-11. Find users who signed up in 7th and 10th month(In the question AND is given but it does not mean we should use AND We need to Use OR here otherwise it will does not give any output.)
+11. Find users who signed up in 7th and 10th month (In the question AND is given but it does not mean we should use AND We need to Use OR here otherwise it will does not give any output.)
 
 --------------------------------------------------
 
@@ -510,4 +510,104 @@ SELECT stu_fname, signup_month,
 FROM students;
 
 
+-----------------------------------------------------
+==========================THEORY====================
+-----------------------------------------------------
 
+DataTypes:
+----------
+What data to store?
+Visit documentation on: dev.mysql.com
+-> Numbers and strings
+Numbers: INT, DECIMAL, FLOAT, BIT
+Strings: CHAR, VARCHAR, BINARY, VARBINARY, BLOB, TEXT, ENUM & SET.
+-> Date and Time
+-> Others (geo/json)
+
+==**Refer date_time.sql file for coding samples for date and time.
+
+========================================================
+------------------JOINS-------------------------
+======================================================
+
+While creating production level database we make seprate table for everything which will help us to save a lot of memory space and data.
+
+Joins are important because suppose you have website and someone created account, but he not purchased anything, then if you don't have seprate tables then you will get NULL values at that table.
+
+There are 4 types of joins.
+
+1. Inner Join:
+->In this join we take information from both tables. The information only come when both sides of table will have some information. If any of the side will have NULL we will not get that entire row.
+
+2. Left Join:
+->In this we take all information from left table but only after joining the both tables. 
+Here we get all data from left side and the right side will hava a liberty to give NULL when there is no data available for equivalent right side.
+
+3. Right Join:
+->In this we take all information from right table but only after joining the both tables.
+
+4. Full Outer join:
+->In this we take all data from both sides.
+
+
+--------------------------------------------------
+=========Answering JOIN questions=================
+==================================================
+Task on joins:
+1. Get me all order id, customers name and date when order was placed.
+
+==================================================
+
+There are tables and we can join them that much we know until now.
+
+In our git_share database orders database has 3 foriegn keys and so we can say that there are more than one relations as well for tables.
+
+
+How can tables be connected?
+
+One to one 		smaller user table -> Bigger user Info
+
+
+One to many 	Users table with orders/Course tables
+
+
+Many to Many 	Courses table with users table
+
+One to Many and Many to Many are most commonly used.
+
+
+Join 3 Table:
+=============
+Get me order id, customer name and who is the shipper for that order.
+
+Joining 2 tables it is little bit tuff to find joining more table but once we understood how to join 3 it is easy to join more than 3.
+
+
+Left Join:
+==========
+No one is tell us explicitely which join to use we have to figure it out by our own.
+
+
+Q. Get the customers name and their order id.
+
+SELECT Customers.customerName, Orders.OrderID
+FROM Customers
+LEFT JOIN Orders 
+ON Customers.CustomerID = Orders.CustomerID;
+
+
+==============================================================
+
+Database engines: INNODB and more:
+----------------------------------
+
+*Everything is just a file whatever we write may be code in any langauge and similar with MySQL it is also file with .sql
+*We have different engines to process this files.
+*File with constraints that restrict us. Ex. FOREIGN KEY Constraints.
+*Point time recovery
+*Encryption, index caches, T-tree index
+
+Types of Engines:
+================
+1. InnoDB: Mostly used and comes with MySQL 
+2. MyISAM

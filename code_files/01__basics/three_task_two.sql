@@ -99,10 +99,10 @@
 
 -- TODO: CASE
 
-SELECT stu_fname, signup_month, 
-    CASE 
-        WHEN signup_month BETWEEN 7 AND 10 THEN 'EARLY BIRD'
-        WHEN signup_month BETWEEN 11 AND 12 THEN 'REGULAR USER'
-        ELSE '##'
-    END AS Custom
-FROM students;
+-- SELECT stu_fname, signup_month, 
+--     CASE 
+--         WHEN signup_month BETWEEN 7 AND 10 THEN 'EARLY BIRD'
+--         WHEN signup_month BETWEEN 11 AND 12 THEN 'REGULAR USER'
+--         ELSE '##'
+--     END AS Custom
+-- FROM students;
