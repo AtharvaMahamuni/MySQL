@@ -1,14 +1,14 @@
 -- SHOW DATABASES;
--- SELECT DATABASE();  --Here it will select NULL database because nothing is used or selected.
--- USE photo_store;   -- don't put database after USE. 
+-- CREATE DATABASE photo_store;
+-- SELECT DATABASE();  
+-- USE photo_store;   
 -- SELECT DATABASE();
 
--- It is good practice to make heading names plurals.
 -- CREATE TABLE cameras(
 --     model_name VARCHAR(30),
 --     quantity INT
 -- ); 
--- DESC cameras; -- this command will show the table. this command is known as describe.
+-- DESC cameras; 
 
 -- TODO: camera table done.
 -- FIXME: here we done mistake according to ptoblem statement we need to make the table of canon cameras but we made it for just cameras.

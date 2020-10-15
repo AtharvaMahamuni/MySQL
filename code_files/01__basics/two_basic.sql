@@ -67,7 +67,6 @@
 -- SELECT email from customers;
 -- SELECT amount from customers;
 
--- this is known as aliasing
 -- SELECT amount AS Purchases from customers;
 
 

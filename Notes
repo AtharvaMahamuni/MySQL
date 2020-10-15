@@ -34,9 +34,9 @@ In this section we will play fictitious scenario and we will try to learn some b
 You want to have a startup. Initial thought was to name it click store. Then you decided to name it photo store. 
 Create DB accordingly.
 ------------------------------------------------------------
-*** mysql -u root -p - this command is used to start MySQL on cmd when you hit this command it will ask you for the password for root user.
+*** mysql -u root -p : this command is used to start MySQL on cmd when you hit this command it will ask you for the password for root user.
 
-*** show databases; - this command will show you the the database and first time it will come with bydefault values.
+*** show databases; : this command will show you the the database and first time it will come with bydefault values.
 
 *** CREATE DATABASE click_store; : this command will create a new data base and we can verify it by using show databases command.
 
@@ -71,7 +71,8 @@ CREATE TABLE cameras(
 ***To see the table we use describe command
 DESC cameras;
 
-***SHOW TABLES; this command is used to see the all available tables in database.
+***SHOW TABLES; 
+this command is used to see the all available tables in database.
 
 
 
@@ -140,7 +141,7 @@ This are base foundations of relational database.
 
 Primary Key:
 ============
-Whenever you want to make anything or any row unique then it comes to the primary key. It is used to make naything unique
+Whenever you want to make anything or any row unique then it comes to the primary key. It is used to make anything unique
 
 Default:
 ========
@@ -291,7 +292,7 @@ The 1 denotes that start from first postion(Here we will start string from 1 not
 If you missout this 4 then all values get printed.
 
 *Query for 4th question is:
-SELECT CONCAT(REPLACE(email, 1, 7), '...') AS trucared_email from students;
+SELECT CONCAT(REPLACE(email, 1, 7), '...') AS trucated_email from students;
 
 
 
@@ -393,7 +394,7 @@ Here we want to find all the users who's names will end with esh.
 SELECT stu_fname, email FROM students
 WHERE stu_fname LIKE "%esh";
 
-This % sign will denote that match the string with esh and take naything before that.
+This % sign will denote that match the string with esh and take anything before that.
 
 Similarly if we want all name starting from m we will write something like "m%".
 
@@ -611,3 +612,22 @@ Types of Engines:
 ================
 1. InnoDB: Mostly used and comes with MySQL 
 2. MyISAM
+
+
+ACID in DATABASE:
+================
+This is nothing but the properties of database and according to them we choose our database.
+
+A - Atomicity
+Every transaction should be atomic that means it should be completely happen or need to be completely abort not any middle between them.
+
+C - Consistency
+Database should be consistant that means the syntax which is showing errors will always show errors and transaction which you performing is not allowing you to access strings then it always should be consistent to do so
+
+I - Isolation
+Queries or transaction should not collide with each other if they are happening at the same time. They should have an isolation.
+
+D - Durability
+There should be possibilty to recover files from database but this is highly debatable.
+
+
