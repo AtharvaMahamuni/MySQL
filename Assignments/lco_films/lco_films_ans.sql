@@ -81,6 +81,11 @@
 
 -- TODO: Fetch cast details of films released during 2005 and 2015 with PG rating.
 
+-- SELECT CONCAT(actor.first_name, " ", actor.last_name) AS cast_name, film.title, film.release_year, film.rating 
+-- FROM ((film
+-- INNER JOIN film_actor ON film_actor.film_id = film.film_id)
+-- INNER JOIN actor ON actor.actor_id = film_actor.actor_id) 
+-- WHERE film.rating = "PG" AND film.release_year BETWEEN 2005 AND 2015;
 
 
 -- TODO: In which year most films where released?
@@ -91,3 +96,75 @@
 
 -- SELECT film.release_year, COUNT(film.release_year) AS no_of_films FROM
 -- `film` GROUP BY (film.release_year) ORDER BY COUNT(film.release_year) DESC LIMIT 1;
+
+
+-- TODO: In which year least no. of films where released
+
+-- SELECT film.release_year, COUNT(film.release_year) AS no_of_films
+-- FROM film GROUP BY release_year ORDER BY COUNT(release_year) ASC LIMIT 1;
+
+
+-- TODO: Get the details of the film with maximum length released in 2014
+
+-- SELECT film.title, film.release_year, film.length, film.description 
+-- FROM film
+-- WHERE film.release_year = 2014 ORDER BY film.length DESC LIMIT 1;
+
+
+-- TODO: Get all Sci-Fi movies with NC-17 rating and language they are screened in.
+
+-- SELECT film.title, category.name, film.rating , language.name 
+-- FROM (((film
+-- LEFT JOIN film_category ON film_category.film_id = film.film_id)
+-- LEFT JOIN category ON category.category_id = film_category.category_id)
+-- RIGHT JOIN language ON film.language_id = language.language_id)
+-- WHERE category.name="sci-fi" AND film.rating = "nc-17";
+
+-- TODO: The actor FRED COSTNER(ID: 16) shifted to a new address:
+--      055, Piazzale Michelangelo, Postal Code - 50125, District - Rifredi at Florence, Italy.
+--      Insert the new city and update the address of actor.
+
+-- SELECT * FROM actor WHERE actor_id = 16;
+-- SELECT * FROM address WHERE address_id = 65;
+-- SELECT * FROM city WHERE city LIKE "F%";
+-- SELECT * FROM country where country_id = "24";
+-- Florence is not present in our city data base so first we need to insert this city into database
+
+-- FIXME: step 1:
+
+-- INSERT INTO `city`(`city`, `country_id`)
+-- VALUES("Florence", (SELECT country_id FROM `country` WHERE country.country = "Italy"));
+
+-- FIXME: step 2:
+-- TO SEE ACTOR DETAILS.
+
+-- SELECT CONCAT(actor.first_name, " ", actor.last_name) AS actor_name, address.address, address.district, address.city_id, address.postal_code, city.city, country.country 
+-- FROM(((address
+-- RIGHT JOIN actor ON actor.address_id = address.address_id)
+-- LEFT JOIN city ON city.city_id = address.city_id)
+-- INNER JOIN country ON country.country_id = city.country_id)
+-- WHERE actor.actor_id = 16;
+
+-- TO UPDATE DATA
+
+-- UPDATE `address` SET address.address="055, Piazzale Michelangelo", 
+-- address.district="Rifredi", 
+-- address.city_id=(SELECT city_id FROM city WHERE city ="Florence"), 
+-- address.postal_code = 50125 
+-- WHERE address.address_id =(SELECT `address_id` FROM `actor` WHERE actor.actor_id = 16);
+
+
+-- TODO: A new film "No Time to Die" is releaing in 2020 whose details are:
+--      Title:- No Time to Die
+--      Description: Recruited tho rescue a kidnapped scientist, globe-trotting spy James Bond finds
+--      himself hot on the trail of a mysterious villain, who's armed with a dangerous new technology.
+--      Language: English
+--      Org. Language: English
+--      Length: 100
+--      Rental duration: 6
+--      Rental rate: 3.99
+--      Rating: PG-13
+--      Replacement cost: 20.99
+--      Special Features: Trailer, Deleted Scenes
+
+-- Insert the above data
