@@ -168,3 +168,74 @@
 --      Special Features: Trailer, Deleted Scenes
 
 -- Insert the above data
+
+-- INSERT INTO `film`(`title`, `description`, `release_year`, `language_id`, `original_language_id`, `rental_duration`, `rental_rate`, `length`, `replacement_cost`, `rating`, `special_features`)
+--     VALUES(
+--     "No Time to Die", 
+--     "Recruited tho rescue a kidnapped scientist, globe-trotting spy James Bond finds himself hot on the trail of a mysterious villain, who's armed with a dangerous new technology.",
+--     2020, 
+--     (SELECT `language_id` FROM `language` WHERE name ="English"),
+--     (SELECT `language_id` FROM `language` WHERE name ="English"),
+--     6,
+--     3.99,
+--     100,
+--     20.99,
+--     "PG",
+--     "Trailers,Deleted Scenes"
+--     );
+
+
+-- TODO: Assign the category to Action, classics, Drama to the movie No Time to Die.
+
+-- INSERT INTO `film_category`(`film_id`, `category_id`)
+-- VALUES(
+--     (SELECT film_id FROM film WHERE title = "No Time to Die"),
+--     (SELECT category_id FROM category WHERE name = "Action")
+-- ),
+-- (
+--     (SELECT film_id FROM film WHERE title = "No Time to Die"),
+--     (SELECT category_id FROM category WHERE name = "Classics")
+-- ),
+-- (
+--     (SELECT film_id FROM film WHERE title = "No Time to Die"),
+--     (SELECT category_id FROM category WHERE name = "Drama")
+-- );
+
+
+-- TODO: Assign the cast: PENELOPE GUINESS, NICK WAHLBERG, JOE SWANK to the movie "No Time to Die".
+
+-- INSERT INTO `film_actor`(`actor_id`, `film_id`)
+-- VALUES(
+--     (SELECT actor_id FROM actor WHERE first_name = "PENELOPE" AND last_name = "GUINESS"),
+--     (SELECT film_id FROM film WHERE title = "No Time to Die")
+-- ),
+-- (
+--     (SELECT actor_id FROM actor WHERE first_name = "NICK" AND last_name = "WAHLBERG"),
+--     (SELECT film_id FROM film WHERE title = "No Time to Die")
+-- ),
+-- (
+--     (SELECT actor_id FROM actor WHERE first_name = "JOE" AND last_name = "SWANK"),
+--     (SELECT film_id FROM film WHERE title = "No Time to Die")
+-- );
+
+
+-- TODO: Assign a new category Thriller to the movie ANGELS LIFE.
+
+-- INSERT INTO `category`(`name`)
+-- VALUES(
+--     "Thriller"
+-- );
+
+-- INSERT INTO `film_category`(`film_id`, `category_id`)
+-- VALUES(
+--     (SELECT film_id FROM film WHERE title = "ANGELS LIFE"),
+--     (SELECT category_id FROM category WHERE name = "Thriller")
+-- );
+
+
+-- TODO: Which actor acted in most movies?
+
+-- SELECT film_actor.actor_id, CONCAT(actor.first_name, " ", actor.last_name), COUNT(actor.actor_id) 
+-- FROM film_actor
+-- INNER JOIN actor ON actor.actor_id = film_actor.actor_id
+-- GROUP BY actor_id ORDER BY COUNT(actor.actor_id) DESC LIMIT 1;
