@@ -239,3 +239,105 @@
 -- FROM film_actor
 -- INNER JOIN actor ON actor.actor_id = film_actor.actor_id
 -- GROUP BY actor_id ORDER BY COUNT(actor.actor_id) DESC LIMIT 1;
+
+
+-- TODO: The actor JOHNNY LOLLOBRIGIDA was removed from the movie GRAIL FRANKENSTEIN.
+--      How would you update the record?
+
+-- Selecting data from database
+    -- SELECT * FROM film_actor WHERE
+    -- actor_id = (SELECT actor_id FROM actor WHERE first_name = "JOHNNY" AND last_name = "LOLLOBRIGIDA")
+    -- AND
+    -- film_id = (SELECT film_id FROM film WHERE title = "GRAIL FRANKENSTEIN");
+
+-- To Delete Record:
+    -- DELETE FROM film_actor WHERE
+    -- actor_id = (SELECT actor_id FROM actor WHERE first_name = "JOHNNY" AND last_name = "LOLLOBRIGIDA")
+    -- AND
+    -- film_id = (SELECT film_id FROM film WHERE title = "GRAIL FRANKENSTEIN");
+
+
+-- TODO: The HARPER DYING movie is an animated movie with Drama and Comedy.
+    --      Assign this categories to the movie.
+
+    -- Selecting data from database:
+        -- SELECT * FROM film_category WHERE 
+        -- film_id = (SELECT film_id FROM film WHERE title = "HARPER DYING");
+
+    -- Updating data in database:
+        -- INSERT INTO `film_category`(`film_id`, `category_id`)
+        -- VALUES(
+        --     (SELECT film_id FROM film WHERE title = "HARPER DYING"),
+        --     (SELECT category_id FROM category WHERE name = "DRAMA")
+        -- ),
+        -- (
+        --     (SELECT film_id FROM film WHERE title = "HARPER DYING"),
+        --     (SELECT category_id FROM category WHERE name = "COMEDY")
+        -- );
+
+-- TODO: The entire cast of the movie WEST LION has changed. The new actors are DAN TORN, 
+--      MAE HOFFMAN, SCARLETT DAMON. How would you update the rcord in the safest way?
+
+    -- Selecting data from database:
+        -- SELECT * FROM film_actor WHERE 
+        -- film_id =  (SELECT film_id FROM film WHERE title = "WEST LION");
+
+    -- Deleting all previous data from DB to insure that nothing will remain befor inserting new cast
+        -- DELETE FROM film_actor WHERE
+        -- film_id = (SELECT film_id FROM film WHERE title = "WEST LION");
+
+    -- Inserting new cast in database
+        -- INSERT INTO `film_actor`(`actor_id`, `film_id`)
+        -- VALUES(
+        --     (SELECT actor_id FROM actor WHERE first_name = "DAN" AND last_name = "TORN"),
+        --     (SELECT film_id FROM film WHERE title = "WEST LION")
+        -- ),
+        -- (
+        --     (SELECT actor_id FROM actor WHERE first_name = "MAE" AND last_name = "HOFFMAN"),
+        --     (SELECT film_id FROM film WHERE title = "WEST LION")
+        -- ),
+        -- (
+        --     (SELECT actor_id FROM actor WHERE first_name = "SCARLETT" AND last_name = "DAMON"),
+        --     (SELECT film_id FROM film WHERE title = "WEST LION")
+        -- );
+
+
+-- TODO: The entire category of movie WEST LION  was wrongly inserted. The correct categories are
+--      Classics, Family, Children. How would you update the record ensuring no wrong data is left?
+
+    -- Selecting data from database:
+        -- SELECT * from film_category WHERE
+        -- film_id = (SELECT film_id FROM film WHERE title = "WEST LION");
+
+    -- Deleting existing categories:
+        -- DELETE FROM film_category WHERE
+        -- film_id = (SELECT film_id FROM film WHERE title = "WEST LION");
+
+    -- Inserting categories in film_category table:
+        -- INSERT INTO `film_category`(`film_id`, `category_id`)
+        -- VALUES(
+        --     (SELECT film_id FROM film WHERE title = "WEST LION"),
+        --     (SELECT category_id FROM category WHERE name = "CLASSICS")
+        -- ),
+        -- (
+        --     (SELECT film_id FROM film WHERE title = "WEST LION"),
+        --     (SELECT category_id FROM category WHERE name = "FAMILY")
+        -- ),
+        -- (
+        --     (SELECT film_id FROM film WHERE title = "WEST LION"),
+        --     (SELECT category_id FROM category WHERE name = "CHILDREN")
+        -- );
+
+-- TODO: How many actors acted in films released in 2017?
+
+-- ACTORS ARE REPEATED
+    -- SELECT COUNT(*) AS "ACTORS ACTED IN 2017" 
+    -- FROM film_actor
+    -- INNER JOIN film ON film.film_id = film_actor.film_id
+    -- WHERE film.release_year = 2017;
+
+-- ACTORS ARE NOT REPEATED
+    -- SELECT COUNT(DISTINCT actor_id) AS "ACTORS ACTED IN 2017" 
+    -- FROM film_actor
+    -- INNER JOIN film ON film.film_id = film_actor.film_id
+    -- WHERE film.release_year = 2017;
