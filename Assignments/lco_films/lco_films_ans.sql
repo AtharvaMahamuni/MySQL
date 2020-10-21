@@ -341,3 +341,49 @@
     -- FROM film_actor
     -- INNER JOIN film ON film.film_id = film_actor.film_id
     -- WHERE film.release_year = 2017;
+
+
+-- TODO: How many Sci-Fi films released between the year 2007 to 2017?
+    -- SELECT film.title AS film_name, film.release_year, category.name AS category FROM film 
+    -- INNER JOIN film_category ON film_category.film_id = film.film_id
+    -- INNER JOIN category ON category.category_id = film_category.category_id
+    -- WHERE category.name = "SCI-FI" AND release_year BETWEEN 2007 AND 2017 ORDER BY release_year;
+
+
+-- TODO: Fetch the actors of movie WESTWARD SEABISCUIT with the city they live in.
+    -- SELECT CONCAT(actor.first_name, " ", actor.last_name) AS actor_name, city.city 
+    -- FROM actor 
+    -- LEFT JOIN address ON address.address_id = actor.address_id
+    -- LEFT JOIN city ON city.city_id = address.address_id
+    -- INNER JOIN film_actor ON film_actor.actor_id = actor.actor_id
+    -- INNER JOIN film ON film.film_id = film_actor.film_id
+    -- WHERE film.title = "WESTWARD SEABISCUIT";
+
+
+-- TODO: What is the total length of all movies played in 2008?
+    -- SELECT SUM(`length`) AS total_length_of_all_movies FROM `film` WHERE release_year = 2008;
+
+
+-- TODO: WHICH film has the shortest length? In which language and year was it released?
+--    My solution 
+    -- SELECT film.title, film.length, film.release_year FROM `film` ORDER BY film.length LIMIT 1;
+
+-- LCO solution
+    -- SELECT language.name, film.title, film.release_year, film.length 
+    -- FROM `film` 
+    -- LEFT JOIN `language` ON language.language_id = film.language_id
+    -- WHERE film.Length = (SELECT MIN(film.length) FROM film);
+
+-- TODO: How many movies are released each year?
+    -- SELECT film.release_year, COUNT(film.release_year) AS no_of_films FROM `film`
+    -- GROUP BY film.release_year;
+
+-- TODO: How many languages of movies were released each year?
+    SELECT language.name, COUNT(film.language_id) AS number_of_films 
+    FROM `film` 
+    INNER JOIN language ON language.language_id = film.language_id
+    GROUP BY film.language_id;
+
+-- TODO: Which actor did least movies?
+    SELECT actor_id, COUNT(actor_id) AS no_of_films FROM `film_actor`
+    GROUP BY actor_id ORDER BY COUNT(actor_id) ASC LIMIT 1;
