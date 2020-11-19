@@ -143,12 +143,12 @@ Primary Key:
 ============
 Whenever you want to make anything or any row unique then it comes to the primary key. It is used to make anything unique
 
-Default:
-========
+Default Value:
+==============
 When someone don't want to give some value then the value which will come in that place is a default value.
 
-Not NULL:
-=========
+NULL Value:
+===========
 We don't want the values in our database will come as NULL.
 
 
@@ -183,7 +183,7 @@ U - UPDATE
 D - DELETE
 This all are concepts not just the commands.
 
--Whatever we done till now are CREATE tasks
+-Whatever we done till now are CREATE & READ tasks
 
 Now we are going to do UPDATE tasks.
 ---------------------------------------------------------------
@@ -356,7 +356,7 @@ SELECT DISTINCT stu_fname, email FROM students;
 
 ORDER BY:
 =========
-With the help of this query we can arrange our data in asscending or descending order.
+With the help of this query we can arrange our data in ascending or descending order.
 
 ***It is bydefault in ascending order to print it in descending order we need to write the DESC keyword.
 
@@ -434,7 +434,7 @@ SELECT stu_fname, email, MAX(login_count) FROM students;
 
 This both queries will give just MAX OR MIN of login count but the name and email associated  with that is wrong.
 
-To fix that we need to fireup two queries at a time and this query will be as follows:
+To Tofix that we need to fireup two queries at a time and this query will be as follows:
 
 SELECT stu_fname, email, login_count FROM students
 WHERE login_count = (SELECT MAX(login_count) FROM students);
@@ -595,6 +595,7 @@ SELECT Customers.customerName, Orders.OrderID
 FROM Customers
 LEFT JOIN Orders 
 ON Customers.CustomerID = Orders.CustomerID;
+
 
 
 ==============================================================
